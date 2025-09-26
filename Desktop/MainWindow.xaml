@@ -49,7 +49,9 @@
         <Button Content="Восстановить пароль" HorizontalAlignment="Left" Margin="533,291,0,0" VerticalAlignment="Top" Width="213" Background="White" BorderThickness="0,0,0,0" FontSize="20"/>
         <Button Content="Войти" HorizontalAlignment="Left" Margin="414,337,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="332" FontSize="16"/>
         <Button Content="Регистрация" HorizontalAlignment="Left" Margin="414,383,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="332" FontSize="16"/>
+        <Image Source="file:///C:/Users/User/Desktop/2%20курс/Todo/images/logo.jpg" Margin="64,22,546,255"/>
+
 
     </Grid>
-   
+
 </Window>
