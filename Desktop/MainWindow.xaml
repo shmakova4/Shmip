@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Log In" Height="450" Width="800">
     <Grid>
         <Label Content="Добро пожаловать!" HorizontalAlignment="Left" Margin="414,37,0,0" VerticalAlignment="Top" Width="262" FontSize="27"/>
         <Label Content="Почта" HorizontalAlignment="Left" Margin="414,120,0,0" VerticalAlignment="Top" Width="112" FontSize="22"/>
