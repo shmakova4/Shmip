@@ -68,5 +68,7 @@
         <Label Content="Создайте свою первую&#xD;&#xA;задачу!" HorizontalAlignment="Left" Margin="180,147,0,0" VerticalAlignment="Top" Width="309" FontSize="27" Height="101"/>
         <Button Style="{DynamicResource кнопка5}" Content="Создать первую задачу" HorizontalAlignment="Center" Margin="0,301,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="198" FontSize="16"/>
         <Image Source="file:///C:/Users/User/Desktop/2%20курс/Todo/images/account.png" Margin="10,-2,709,358"/>
+
+
     </Grid>
 </Window>
