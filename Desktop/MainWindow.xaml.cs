@@ -45,9 +45,32 @@ namespace Desktop
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Main_empty mainEmptyWindow = new Main_empty();
+            string email = EmailTextBox.Text;
+            string password = PasswordTextBox.Text;
+
+            if (!InputValidator.IsValidEmail(email))
+            {
+                MessageBox.Show("Пожалуйста, введите корректный email.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (!InputValidator.IsValidPassword(password))
+            {
+                MessageBox.Show("Пароль должен содержать не менее 6 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+
+
+
+        Main_empty mainEmptyWindow = new Main_empty();
             mainEmptyWindow.Show();
             this.Hide();
+        }
+
+        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
