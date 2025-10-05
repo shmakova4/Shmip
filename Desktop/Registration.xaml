@@ -67,7 +67,7 @@
         <Label Content="Welkome back" HorizontalAlignment="Left" Margin="414,10,0,0" VerticalAlignment="Top" Width="262" FontSize="27"/>
         <Label Content="Имя пользователя" Margin="414,69,0,0" VerticalAlignment="Top" Width="201" FontSize="18" Height="35" HorizontalAlignment="Left"/>
         <Label Content="Ваша почта" HorizontalAlignment="Left" Margin="414,131,0,0" VerticalAlignment="Top" Width="140" FontSize="18" Height="40"/>
-        <TextBox FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,101,80,306" Text="Введите имя пользователя" TextChanged="TextBox_TextChanged_2">
+        <TextBox FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,101,80,283" Text="Введите имя пользователя" TextChanged="TextBox_TextChanged_2">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="BorderThickness" Value="0"/>
@@ -85,7 +85,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <TextBox FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,161,80,246" Text="exam@yandex.ru">
+        <TextBox FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,161,80,228" Text="exam@yandex.ru">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="BorderThickness" Value="0"/>
@@ -104,11 +104,11 @@
             </TextBox.Style>
         </TextBox>
         <Button Style="{DynamicResource кнопка3}" Content="Зарегистрироваться" HorizontalAlignment="Left" Margin="414,337,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="306" FontSize="16"/>
-        <Button Content="Назад" HorizontalAlignment="Left" Margin="414,383,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="306" FontSize="16" Style="{DynamicResource кнопка3}"/>
+        <Button Content="Назад" HorizontalAlignment="Left" Margin="414,374,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="306" FontSize="16" Style="{DynamicResource кнопка3}" Click="Button_Click_1"/>
         <Image Source="file:///C:/Users/User/Desktop/2%20курс/Todo/images/logo.jpg" Margin="64,22,546,255"/>
         <Label Content="Повторите пароль" HorizontalAlignment="Left" Margin="414,247,0,0" VerticalAlignment="Top" Width="175" FontSize="18" Height="35"/>
         <Label Content="Пароль" HorizontalAlignment="Left" Margin="414,187,0,0" VerticalAlignment="Top" Width="87" FontSize="18" Height="39"/>
-        <TextBox FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,278,80,129" Text="Повторите пароль" TextChanged="TextBox_TextChanged_2">
+        <TextBox FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,278,80,112" Text="Повторите пароль" TextChanged="TextBox_TextChanged_2">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="BorderThickness" Value="0"/>
@@ -126,7 +126,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <TextBox FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,217,80,190" Text="Введите пароль">
+        <TextBox FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,217,80,170" Text="Введите пароль">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="BorderThickness" Value="0"/>

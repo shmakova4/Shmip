@@ -35,5 +35,19 @@ namespace Desktop
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Registration registrationWindow = new Registration();
+            registrationWindow.Show();
+            this.Hide();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Main_empty mainEmptyWindow = new Main_empty();
+            mainEmptyWindow.Show();
+            this.Hide();
+        }
     }
 }
