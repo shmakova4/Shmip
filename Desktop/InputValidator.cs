@@ -16,13 +16,8 @@ namespace Desktop
         {
             if (string.IsNullOrEmpty(email))
             {
-                return false; // Или можно бросить исключение, если пустой email не допускается
+                return false; 
             }
-
-            // Простой regex для проверки "@" и "."
-            // Лучше использовать более строгий regex для реальной проверки email в production.
-            // Например, можно взять regex из System.ComponentModel.DataAnnotations.EmailAddressAttribute.
-            // Но для простоты и соответствия требованиям задачи, вот этот пример.
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, pattern);
         }
@@ -31,9 +26,17 @@ namespace Desktop
         {
             if (string.IsNullOrEmpty(password))
             {
-                return false; // Или можно бросить исключение, если пустой пароль не допускается
+                return false; 
             }
             return password.Length >= 6;
+        }
+        public static bool IsValidUsername(string username)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                return false;
+            }
+            return username.Length >= 3;
         }
     }
 
