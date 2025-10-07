@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,28 @@ namespace Desktop
     /// <summary>
     /// Логика взаимодействия для Registration.xaml
     /// </summary>
+    ///
+    public class StringToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string text = value as string;
+            if (string.IsNullOrEmpty(text))
+            {
+                return Visibility.Visible; 
+            }
+            else
+            {
+                return Visibility.Collapsed; 
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public partial class Registration : Window
     {
         public Registration()
@@ -95,6 +118,11 @@ namespace Desktop
                 textBox.Text = textBox.Tag.ToString();
                 textBox.Foreground = System.Windows.Media.Brushes.Gray; 
             }
+        }
+
+        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Log In" Height="450" Width="800">
     <Window.Resources>
+        <local:EmptyStringToBooleanConverter x:Key="EmptyStringToBooleanConverter"/>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -80,7 +81,7 @@
                                 <Grid>
                                     <ScrollViewer x:Name="PART_ContentHost" Margin="0" />
                                     <Border BorderBrush="Gray" BorderThickness="0,0,0,1" VerticalAlignment="Bottom"/>
-                                    <TextBlock IsHitTestVisible="False" Text="Введите email"
+                                    <TextBlock x:Name="PlaceholderTextBlock" IsHitTestVisible="False" Text="Введите email"
                                        Foreground="LightGray"
                                        Margin="5,0,0,5"
                                        VerticalAlignment="Center"
@@ -89,14 +90,11 @@
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="Visibility" Value="Visible"/>
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="True">
+                                                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
                                                         <Setter Property="Visibility" Value="Hidden"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="{x:Null}">
-                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource EmptyStringToBooleanConverter}}" Value="False">
+                                                        <Setter Property="Visibility" Value="Hidden"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -121,7 +119,7 @@
                                 <Grid>
                                     <ScrollViewer x:Name="PART_ContentHost" Margin="0" />
                                     <Border BorderBrush="Gray" BorderThickness="0,0,0,1" VerticalAlignment="Bottom"/>
-                                    <TextBlock IsHitTestVisible="False" Text="Введите пароль"
+                                    <TextBlock x:Name="PlaceholderTextBlock" IsHitTestVisible="False" Text="Введите пароль"
                                        Foreground="LightGray"
                                        Margin="5,0,0,5"
                                        VerticalAlignment="Center"
@@ -130,14 +128,11 @@
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="Visibility" Value="Visible"/>
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="True">
+                                                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
                                                         <Setter Property="Visibility" Value="Hidden"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="{x:Null}">
-                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource EmptyStringToBooleanConverter}}" Value="False">
+                                                        <Setter Property="Visibility" Value="Hidden"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -150,7 +145,6 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-
 
 
 
