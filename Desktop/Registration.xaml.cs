@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desktop.Repository;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,13 +13,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Todo.Entities;
 
 namespace Desktop
 {
-    /// <summary>
-    /// Логика взаимодействия для Registration.xaml
-    /// </summary>
-    ///
     public class StringToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -26,11 +24,11 @@ namespace Desktop
             string text = value as string;
             if (string.IsNullOrEmpty(text))
             {
-                return Visibility.Visible; 
+                return Visibility.Visible;
             }
             else
             {
-                return Visibility.Collapsed; 
+                return Visibility.Collapsed;
             }
         }
 
@@ -42,18 +40,11 @@ namespace Desktop
 
     public partial class Registration : Window
     {
+        private UserRepository _userRepository = new UserRepository(); 
+
         public Registration()
         {
             InitializeComponent();
-        }
-        private void TextBox_TextChanged_2(object sender, TextChangedEventArgs e)
-        {
-            
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -63,14 +54,12 @@ namespace Desktop
             this.Close();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Click_2(object sender, RoutedEventArgs e) 
         {
             string username = UsernameTextBox.Text;
             string email = EmailTextBox.Text;
             string password = PasswordTextBox.Text;
             string confirmPassword = ConfirmPasswordTextBox.Text;
-           
-
 
             if (!InputValidator.IsValidUsername(username))
             {
@@ -96,17 +85,26 @@ namespace Desktop
                 return;
             }
 
-            Main_empty mainWindow = new Main_empty();
-            mainWindow.Show();
-            this.Close(); 
+            if (_userRepository.RegisterUser(username, password)) 
+            {
+                MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                Main_empty mainWindow = new Main_empty();
+                mainWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Имя пользователя уже занято. Пожалуйста, выберите другое имя.");
+            }
         }
+
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             var textBox = sender as TextBox;
             if (textBox != null && textBox.Text == textBox.Tag.ToString())
             {
                 textBox.Text = "";
-                textBox.Foreground = System.Windows.Media.Brushes.Black; 
+                textBox.Foreground = Brushes.Black;
             }
         }
 
@@ -116,11 +114,16 @@ namespace Desktop
             if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
             {
                 textBox.Text = textBox.Tag.ToString();
-                textBox.Foreground = System.Windows.Media.Brushes.Gray; 
+                textBox.Foreground = Brushes.Gray;
             }
         }
-
+    
         private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

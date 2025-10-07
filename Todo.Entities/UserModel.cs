@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Todo.Entities
 {
-    internal class UserModel
+    public class UserModel
     {
+        public string Username { get; set; }
+        public string PasswordHash { get; set; }
+        public string PasswordSalt { get; set; }
+
+        public UserModel()
+        {
+            Username = string.Empty;
+            PasswordHash = string.Empty;
+            PasswordSalt = string.Empty;
+        }
     }
+
 }
