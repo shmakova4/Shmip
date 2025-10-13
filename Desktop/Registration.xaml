@@ -66,7 +66,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Label Content="Welkome back" HorizontalAlignment="Left" Margin="414,10,0,0" VerticalAlignment="Top" Width="262" FontSize="27"/>
+        <Label Content="Welcome back" HorizontalAlignment="Left" Margin="414,10,0,0" VerticalAlignment="Top" Width="262" FontSize="27"/>
         <Label Content="Имя пользователя" Margin="414,69,0,0" VerticalAlignment="Top" Width="201" FontSize="18" Height="35" HorizontalAlignment="Left"/>
         <Label Content="Ваша почта" HorizontalAlignment="Left" Margin="414,131,0,0" VerticalAlignment="Top" Width="140" FontSize="18" Height="40"/>
         <Button Style="{DynamicResource кнопка3}" Content="Зарегистрироваться" HorizontalAlignment="Left" Margin="414,337,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="306" FontSize="16" Click="Button_Click_2"/>
@@ -75,7 +75,7 @@
         <Label Content="Повторите пароль" HorizontalAlignment="Left" Margin="414,247,0,0" VerticalAlignment="Top" Width="175" FontSize="18" Height="35"/>
         <Label Content="Пароль" HorizontalAlignment="Left" Margin="414,187,0,0" VerticalAlignment="Top" Width="87" FontSize="18" Height="39"/>
 
-        <TextBox x:Name="UsernameTextBox" FontSize="14" Padding="0,0,0,5" Foreground="Black" Margin="414,105,80,282" TextChanged="UsernameTextBox_TextChanged">
+        <TextBox x:Name="UsernameTextBox" FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,105,80,282" TextChanged="UsernameTextBox_TextChanged">
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Setter Property="BorderThickness" Value="0"/>
@@ -101,7 +101,7 @@
         </TextBox>
 
 
-        <TextBox x:Name="EmailTextBox" FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,152,54,233" TextChanged="EmailTextBox_TextChanged" Opacity="0.45">
+        <TextBox x:Name="EmailTextBox" FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,152,54,233" TextChanged="EmailTextBox_TextChanged">
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Setter Property="BorderThickness" Value="0"/>
@@ -126,7 +126,7 @@
             </TextBox.Style>
         </TextBox>
 
-        <TextBox x:Name="PasswordTextBox" FontSize="16" Padding="0,0,0,5" Foreground="Gray" Margin="414,215,54,170">
+        <TextBox x:Name="PasswordTextBox" FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,215,54,170">
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Setter Property="BorderThickness" Value="0"/>
@@ -192,7 +192,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <TextBox x:Name="ConfirmPasswordTextBox" FontSize="16" Padding="0,0,0,5" Foreground="Gray" Margin="414,282,54,103">
+        <TextBox x:Name="ConfirmPasswordTextBox" FontSize="14" Padding="0,0,0,5" Foreground="Gray" Margin="414,282,54,103">
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Setter Property="BorderThickness" Value="0"/>

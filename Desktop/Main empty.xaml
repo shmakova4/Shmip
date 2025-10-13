@@ -67,21 +67,13 @@
         <Label Content="Добро пожаловать!" HorizontalAlignment="Left" Margin="180,89,0,0" VerticalAlignment="Top" Width="262" FontSize="27"/>
         <Label Content="Создайте свою первую&#xD;&#xA;задачу!" HorizontalAlignment="Left" Margin="180,147,0,0" VerticalAlignment="Top" Width="309" FontSize="27" Height="101"/>
         <Button Style="{DynamicResource кнопка5}" Content="Создать первую задачу" HorizontalAlignment="Center" Margin="0,301,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="198" FontSize="16"/>
-        <Image Source="file:///C:/Users/User/Desktop/2%20курс/Todo/images/account.png" Margin="9,10,710,346"/>
-        <Button Background="#DDDDDD" BorderThickness="0" Margin="-77,1,801,411">
-            <Grid HorizontalAlignment="Left">
-                <TextBlock Text="Выход" HorizontalAlignment="Left" Margin="-16,2,0,-2" />
-            </Grid>
+
+        <Button Margin="48,10,680,351">
+            <Image Source="C:\Users\User\Desktop\2 курс\Todo\images\account.png" Height="70" Width="70" />
         </Button>
+        <Button Content="Выход" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="Button_Click_3"/>
 
 
-        <Button Background="#DDDDDD" BorderThickness="0" Margin="-77,23,801,359">
-            <StackPanel HorizontalAlignment="Left">
-                <TextBlock Text="Изменить" />
-                <TextBlock Text="фото" />
-                <TextBlock Text="профиля" />
-            </StackPanel>
-        </Button>
 
     </Grid>
 </Window>
