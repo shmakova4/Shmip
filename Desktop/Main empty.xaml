@@ -66,10 +66,10 @@
     <Grid>
         <Label Content="Добро пожаловать!" HorizontalAlignment="Left" Margin="180,89,0,0" VerticalAlignment="Top" Width="262" FontSize="27"/>
         <Label Content="Создайте свою первую&#xD;&#xA;задачу!" HorizontalAlignment="Left" Margin="180,147,0,0" VerticalAlignment="Top" Width="309" FontSize="27" Height="101"/>
-        <Button Style="{DynamicResource кнопка5}" Content="Создать первую задачу" HorizontalAlignment="Center" Margin="0,301,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="198" FontSize="16"/>
+        <Button x:Name="buttonzad" Style="{DynamicResource кнопка5}" Content="Создать первую задачу" HorizontalAlignment="Center" Margin="0,301,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="198" FontSize="16" Click="Button_Click_4"/>
 
-        <Button Margin="48,10,680,351">
-            <Image Source="C:\Users\User\Desktop\2 курс\Todo\images\account.png" Height="70" Width="70" />
+        <Button Margin="48,10,666,338">
+            <Image Source="C:\Users\User\Desktop\2 курс\Todo\images\account.png" Height="73" Width="62" />
         </Button>
         <Button Content="Выход" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="Button_Click_3"/>
 

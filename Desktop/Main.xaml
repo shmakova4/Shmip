@@ -3,10 +3,622 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Desktop"
         mc:Ignorable="d"
-        Title="Main" Height="450" Width="800">
+        Title="Задачи" 
+        Height="700" 
+        Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="White">
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" 
+                Background="#F8F8F8" 
+                BorderThickness="0,0,1,0"
+                BorderBrush="#E0E0E0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" 
+                            VerticalAlignment="Top" 
+                            HorizontalAlignment="Center" 
+                            Margin="0,30,0,0">
+
+                    <Border Width="50" 
+                            Height="50" 
+                            CornerRadius="25" 
+                            Background="#808080"
+                            Margin="0,0,0,10">
+                        <Image Source="/Resources/avatar.png" 
+                               Stretch="UniformToFill"/>
+                    </Border>
+
+                    
+                    <TextBlock Name="UserNameTextBlock"
+                               Text="Алексей" 
+                               FontSize="12" 
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,40"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" 
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                    <Button Name="TasksButton"
+                            Content="Задачи" 
+                            Background="Transparent" 
+                            BorderThickness="0"
+                            Foreground="#8B0000"
+                            FontSize="14"
+                            Padding="0,10"
+                            HorizontalAlignment="Center"/>
+
+                    <Button Name="HistoryButton"
+                            Content="История" 
+                            Background="Transparent" 
+                            BorderThickness="0"
+                            Foreground="#8B0000"
+                            FontSize="14"
+                            Padding="0,10"
+                            HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <Button Grid.Row="2"
+                        Name="AddButton"
+                        Content="+" 
+                        Width="56" 
+                        Height="56"
+                        Background="#FF6B8E"
+                        Foreground="White"
+                        BorderThickness="0"
+                        FontSize="24"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,0,30">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    CornerRadius="28">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Border>
+
         
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" 
+                    Background="White" 
+                    BorderThickness="0,0,0,1"
+                    BorderBrush="#E0E0E0"
+                    Padding="20,15">
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Left">
+                    <Button Name="HomeCategoryButton"
+                            Content="Дом" 
+                            Background="Transparent"
+                            Foreground="#4CAF50"
+                            BorderThickness="0"
+                            Padding="20,10"
+                            Margin="0,0,10,0"
+                            FontSize="14">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="6"
+                                        Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Name="WorkCategoryButton"
+                            Content="Работа" 
+                            Background="Transparent"
+                            Foreground="#FF9800"
+                            BorderThickness="0"
+                            Padding="20,10"
+                            Margin="0,0,10,0"
+                            FontSize="14">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="6"
+                                        Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Name="StudyCategoryButton"
+                            Content="Учеба" 
+                            Background="Transparent"
+                            Foreground="#2196F3"
+                            BorderThickness="0"
+                            Padding="20,10"
+                            Margin="0,0,10,0"
+                            FontSize="14">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="6"
+                                        Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Name="RestCategoryButton"
+                            Content="Отдых" 
+                            Background="Transparent"
+                            Foreground="#9C27B0"
+                            BorderThickness="0"
+                            Padding="20,10"
+                            FontSize="14">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="6"
+                                        Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <ScrollViewer Grid.Row="1" 
+                          Padding="20"
+                          VerticalScrollBarVisibility="Auto">
+                <StackPanel Name="TasksStackPanel">
+                    <Border Name="Task1"
+                            Background="White" 
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="#E0E0E0"
+                            Padding="15,15"
+                            Margin="0,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Name="Task1Circle"
+                                    Grid.Column="0" 
+                                    Width="24" 
+                                    Height="24" 
+                                    CornerRadius="12" 
+                                    BorderThickness="2"
+                                    BorderBrush="#E0E0E0"
+                                    Margin="0,0,15,0"
+                                    VerticalAlignment="Center"
+                                    Background="White">
+                                <TextBlock Name="Task1Check"
+                                           Text="✓"
+                                           Foreground="White"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Visibility="Hidden"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Name="Task1Title"
+                                           Text="Сходить на рыбалку" 
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Name="Task1Time"
+                                           Text="9:00"
+                                           FontSize="12"
+                                           Foreground="#666666"
+                                           Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border Name="Task2"
+                            Background="White" 
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="#E0E0E0"
+                            Padding="15,15"
+                            Margin="0,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Name="Task2Circle"
+                                    Grid.Column="0" 
+                                    Width="24" 
+                                    Height="24" 
+                                    CornerRadius="12" 
+                                    BorderThickness="2"
+                                    BorderBrush="#E0E0E0"
+                                    Margin="0,0,15,0"
+                                    VerticalAlignment="Center"
+                                    Background="White">
+                                <TextBlock Name="Task2Check"
+                                           Text="✓"
+                                           Foreground="White"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Visibility="Hidden"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Name="Task2Title"
+                                           Text="Прочитать книгу Златана" 
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Name="Task2Time"
+                                           Text="10:30"
+                                           FontSize="12"
+                                           Foreground="#666666"
+                                           Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border Name="Task3"
+                            Background="White" 
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="#E0E0E0"
+                            Padding="15,15"
+                            Margin="0,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Name="Task3Circle"
+                                    Grid.Column="0" 
+                                    Width="24" 
+                                    Height="24" 
+                                    CornerRadius="12" 
+                                    BorderThickness="2"
+                                    BorderBrush="#E0E0E0"
+                                    Margin="0,0,15,0"
+                                    VerticalAlignment="Center"
+                                    Background="White">
+                                <TextBlock Name="Task3Check"
+                                           Text="✓"
+                                           Foreground="White"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Visibility="Hidden"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Name="Task3Title"
+                                           Text="Купить продукты" 
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Name="Task3Time"
+                                           Text="15:00"
+                                           FontSize="12"
+                                           Foreground="#666666"
+                                           Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border Name="Task4"
+                            Background="White" 
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="#E0E0E0"
+                            Padding="15,15"
+                            Margin="0,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Name="Task4Circle"
+                                    Grid.Column="0" 
+                                    Width="24" 
+                                    Height="24" 
+                                    CornerRadius="12" 
+                                    BorderThickness="2"
+                                    BorderBrush="#E0E0E0"
+                                    Margin="0,0,15,0"
+                                    VerticalAlignment="Center"
+                                    Background="White">
+                                <TextBlock Name="Task4Check"
+                                           Text="✓"
+                                           Foreground="White"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Visibility="Hidden"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Name="Task4Title"
+                                           Text="Позвонить маме" 
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Name="Task4Time"
+                                           Text="16:30"
+                                           FontSize="12"
+                                           Foreground="#666666"
+                                           Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border Name="Task5"
+                            Background="White" 
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="#E0E0E0"
+                            Padding="15,15"
+                            Margin="0,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Name="Task5Circle"
+                                    Grid.Column="0" 
+                                    Width="24" 
+                                    Height="24" 
+                                    CornerRadius="12" 
+                                    BorderThickness="2"
+                                    BorderBrush="#E0E0E0"
+                                    Margin="0,0,15,0"
+                                    VerticalAlignment="Center"
+                                    Background="White">
+                                <TextBlock Name="Task5Check"
+                                           Text="✓"
+                                           Foreground="White"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Visibility="Hidden"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Name="Task5Title"
+                                           Text="Заняться спортом" 
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Name="Task5Time"
+                                           Text="18:00"
+                                           FontSize="12"
+                                           Foreground="#666666"
+                                           Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border Name="Task6"
+                            Background="White" 
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="#E0E0E0"
+                            Padding="15,15"
+                            Margin="0,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Name="Task6Circle"
+                                    Grid.Column="0" 
+                                    Width="24" 
+                                    Height="24" 
+                                    CornerRadius="12" 
+                                    BorderThickness="2"
+                                    BorderBrush="#E0E0E0"
+                                    Margin="0,0,15,0"
+                                    VerticalAlignment="Center"
+                                    Background="White">
+                                <TextBlock Name="Task6Check"
+                                           Text="✓"
+                                           Foreground="White"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Visibility="Hidden"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Name="Task6Title"
+                                           Text="Проверить почту" 
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Name="Task6Time"
+                                           Text="19:45"
+                                           FontSize="12"
+                                           Foreground="#666666"
+                                           Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border Name="Task7"
+                            Background="White" 
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="#E0E0E0"
+                            Padding="15,15"
+                            Margin="0,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Name="Task7Circle"
+                                    Grid.Column="0" 
+                                    Width="24" 
+                                    Height="24" 
+                                    CornerRadius="12" 
+                                    BorderThickness="2"
+                                    BorderBrush="#E0E0E0"
+                                    Margin="0,0,15,0"
+                                    VerticalAlignment="Center"
+                                    Background="White">
+                                <TextBlock Name="Task7Check"
+                                           Text="✓"
+                                           Foreground="White"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Visibility="Hidden"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Name="Task7Title"
+                                           Text="Подготовить отчет" 
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Name="Task7Time"
+                                           Text="21:00"
+                                           FontSize="12"
+                                           Foreground="#666666"
+                                           Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Border Grid.Column="2" 
+                Background="White" 
+                BorderThickness="1,0,0,0"
+                BorderBrush="#333333">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ScrollViewer Grid.Row="0" 
+                              Padding="30"
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Name="TaskTitle" 
+                                   Text="Сходить на рыбалку" 
+                                   FontSize="24" 
+                                   FontWeight="Bold"
+                                   TextAlignment="Center"
+                                   Margin="0,0,0,30"/>
+
+                        <TextBlock Name="TaskTime" 
+                                   Text="9:00" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,10"/>
+
+                        <TextBlock Name="TaskDate" 
+                                   Text="01 Января 2022" 
+                                   FontSize="14"
+                                   Foreground="#666666"
+                                   Margin="0,0,0,30"/>
+
+                        <TextBlock Name="TaskDescription" 
+                                   Text="Встретиться со Стивеном у озера в 9 утра. Взять с собой рыболовные снасти, наживку и термос с горячим кофе. Обсудить планы на следующий рыболовный сезон."
+                                   FontSize="14"
+                                   TextWrapping="Wrap"
+                                   LineHeight="22"
+                                   Foreground="#333333"
+                                   TextAlignment="Left"/>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <Border Grid.Row="1" 
+                        Background="#F8F8F8" 
+                        Padding="30,20">
+                    <StackPanel HorizontalAlignment="Center">
+                        <Button Name="CompleteButton" 
+                                Content="Готово" 
+                                Width="120" 
+                                Height="40" 
+                                Margin="0,0,0,10"
+                                Background="#FF6B8E"
+                                Foreground="White"
+                                BorderThickness="0"
+                                FontSize="14"
+                                HorizontalAlignment="Center">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}"
+                                            CornerRadius="20">
+                                        <ContentPresenter HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <Button Name="DeleteButton" 
+                                Content="Удалить" 
+                                Width="120" 
+                                Height="40"
+                                Background="#FF6B8E"
+                                Foreground="White"
+                                BorderThickness="0"
+                                FontSize="14"
+                                HorizontalAlignment="Center">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}"
+                                            CornerRadius="20">
+                                        <ContentPresenter HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

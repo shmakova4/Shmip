@@ -45,5 +45,15 @@ namespace Desktop
             var loginWindow = new MainWindow();
             loginWindow.Show();
         }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            
+
+            CreateTaskWindow createTaskWindow = new CreateTaskWindow();
+
+            createTaskWindow.Owner = this; 
+            createTaskWindow.ShowDialog();
+        }
     }
 }

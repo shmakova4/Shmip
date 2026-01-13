@@ -1,20 +1,14 @@
-﻿using System.Globalization;
-using System.Text;
+﻿using System;
+using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Desktop.Repository;
+using Todo.Entities;
 
 namespace Desktop
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public class EmptyStringToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -27,11 +21,19 @@ namespace Desktop
             throw new NotImplementedException();
         }
     }
+
     public partial class MainWindow : Window
     {
+        private readonly UserRepository _userRepository;
+
         public MainWindow()
         {
             InitializeComponent();
+            _userRepository = new UserRepository();
+
+            string filePath = @"C:\Users\User\Desktop\2 курс\Todo\users.json";
+            Console.WriteLine($"Путь к файлу пользователей: {filePath}");
+            Console.WriteLine($"Файл существует: {File.Exists(filePath)}");
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -73,12 +75,59 @@ namespace Desktop
                 return;
             }
 
+            try
+            {
+                var allUsers = _userRepository.GetAllUsers();
+                Console.WriteLine($"Всего пользователей в системе: {allUsers.Count}");
 
+                foreach (var userItem in allUsers)
+                {
+                    Console.WriteLine($"Пользователь: {userItem.Username}, Email: {userItem.Email}");
+                }
 
+                var authenticatedUser = _userRepository.AuthenticateUser(email, password);
 
-        Main_empty mainEmptyWindow = new Main_empty();
-            mainEmptyWindow.Show();
-            this.Hide();
+                if (authenticatedUser == null)
+                {
+                    MessageBox.Show("Неверный email или пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    CreateTestUserIfNeeded(email, password, _userRepository);
+                    return;
+                }
+
+                CurrentUser.User = authenticatedUser;
+
+                Main mainWindow = new Main();
+                mainWindow.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при авторизации: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine($"Исключение: {ex}");
+            }
+        }
+
+        private void CreateTestUserIfNeeded(string email, string password, UserRepository userRepository)
+        {
+            try
+            {
+                string username = email.Contains('@') ? email.Split('@')[0] : email;
+
+                if (userRepository.RegisterUser(username, email, password))
+                {
+                    MessageBox.Show($"Создан новый пользователь: {email}\nПопробуйте войти снова.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Console.WriteLine($"Создан тестовый пользователь: {username} ({email})");
+                }
+                else
+                {
+                    Console.WriteLine($"Не удалось создать пользователя {email} - возможно уже существует");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка создания тестового пользователя: {ex.Message}");
+            }
         }
 
         private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)

@@ -1,0 +1,26 @@
+﻿[
+  {
+    "Username": "\u041A\u0441\u0435\u043D\u0438\u044F",
+    "Email": "",
+    "PasswordHash": "zWxsqR\u002BxaOY76HnjXRi/7IgRkyMX1pq2hLKOO5p83L8=",
+    "PasswordSalt": "L3dVon6DogGxjldqgjbndw=="
+  },
+  {
+    "Username": "s@s.s",
+    "Email": "",
+    "PasswordHash": "V78RlgnzPQlq7zXcjocSDUXDkEttIebWdJ0JmQdawqA=",
+    "PasswordSalt": "v\u002B6bV47Y61cKVOYR1qolqA=="
+  },
+  {
+    "Username": "s",
+    "Email": "s@s.s",
+    "PasswordHash": "4PP6uFKOgjdjtb8BpxYYBvQnDGPO38rf8HOY4S6d1Vw=",
+    "PasswordSalt": "uv05YW895yO2FRp\u002B4l2Yvg=="
+  },
+  {
+    "Username": "Qqq",
+    "Email": "q@q.q",
+    "PasswordHash": "DtMGE38i08q9/UYQomKOUKa0ZGAdfAYVIqS5n1msejw=",
+    "PasswordSalt": "SYp6PUK5WpYhTsopoOzxcg=="
+  }
+]
