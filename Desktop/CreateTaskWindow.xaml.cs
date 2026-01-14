@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desktop.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Todo.Entities;
 
 namespace Desktop
 {
@@ -25,13 +27,70 @@ namespace Desktop
         }
 
 
+        
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            Main main = new Main();
+            
+            if (string.IsNullOrWhiteSpace(TitleTextBox.Text))
+            {
+                MessageBox.Show("Введите название задачи",
+                              "Ошибка",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Warning);
+                TitleTextBox.Focus();
+                return;
+            }
 
-            this.Close();
+            string title = TitleTextBox.Text;
+            string category = (CategoryComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Дом";
+            string description = DescriptionTextBox.Text;
 
-            main.Show();
+            DateTime? selectedDate = DatePickerControl.SelectedDate;
+            string hourStr = (HoursComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "09";
+            string minuteStr = (MinutesComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "00";
+
+            DateTime taskDate;
+            if (selectedDate.HasValue)
+            {
+                taskDate = selectedDate.Value;
+            }
+            else
+            {
+                taskDate = DateTime.Today;
+            }
+
+            string time = $"{hourStr}:{minuteStr}";
+
+            if (CurrentUser.IsAuthenticated && CurrentUser.User != null)
+            {
+                var task = new TaskModel
+                {
+                    Title = title,
+                    Category = category,
+                    Description = description,
+                    Date = taskDate,
+                    Time = time,
+                    Username = CurrentUser.User.Username
+                };
+
+                var taskRepository = new TaskRepository();
+                if (taskRepository.AddTask(task))
+                {
+                    Console.WriteLine($"Задача сохранена для пользователя: {CurrentUser.User.Username}");
+                    this.DialogResult = true; 
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при сохранении задачи", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пользователь не авторизован", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

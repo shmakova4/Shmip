@@ -30,25 +30,9 @@ namespace Desktop
         {
             InitializeComponent();
             _userRepository = new UserRepository();
-
             string filePath = @"C:\Users\User\Desktop\2 курс\Todo\users.json";
             Console.WriteLine($"Путь к файлу пользователей: {filePath}");
             Console.WriteLine($"Файл существует: {File.Exists(filePath)}");
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_2(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -90,15 +74,24 @@ namespace Desktop
                 if (authenticatedUser == null)
                 {
                     MessageBox.Show("Неверный email или пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-
                     CreateTestUserIfNeeded(email, password, _userRepository);
                     return;
                 }
 
                 CurrentUser.User = authenticatedUser;
+                bool userHasTasks = CheckIfUserHasTasks(authenticatedUser.Username);
 
-                Main mainWindow = new Main();
-                mainWindow.Show();
+                if (userHasTasks)
+                {
+                    Main mainWindow = new Main();
+                    mainWindow.Show();
+                }
+                else
+                {
+                    Main_empty mainEmptyWindow = new Main_empty();
+                    mainEmptyWindow.Show();
+                }
+
                 this.Hide();
             }
             catch (Exception ex)
@@ -113,7 +106,6 @@ namespace Desktop
             try
             {
                 string username = email.Contains('@') ? email.Split('@')[0] : email;
-
                 if (userRepository.RegisterUser(username, email, password))
                 {
                     MessageBox.Show($"Создан новый пользователь: {email}\nПопробуйте войти снова.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -130,9 +122,18 @@ namespace Desktop
             }
         }
 
-        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private bool CheckIfUserHasTasks(string username)
         {
-
+            try
+            {
+                var taskRepository = new TaskRepository();
+                return taskRepository.UserHasTasks(username);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка проверки задач: {ex.Message}");
+                return false;
+            }
         }
     }
 }

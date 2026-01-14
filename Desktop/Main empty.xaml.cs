@@ -1,42 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Desktop.Repository;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Todo.Entities;
 
 namespace Desktop
 {
-    /// <summary>
-    /// Логика взаимодействия для Main_empty.xaml
-    /// </summary>
     public partial class Main_empty : Window
     {
         public Main_empty()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -48,12 +21,27 @@ namespace Desktop
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            
-
             CreateTaskWindow createTaskWindow = new CreateTaskWindow();
-
-            createTaskWindow.Owner = this; 
+            createTaskWindow.Owner = this;
+            createTaskWindow.Closed += CreateTaskWindow_Closed; 
             createTaskWindow.ShowDialog();
+        }
+
+        private void CreateTaskWindow_Closed(object sender, EventArgs e)
+        {
+            
+            if (CurrentUser.IsAuthenticated && CurrentUser.User != null)
+            {
+                var taskRepository = new TaskRepository();
+                bool hasTasks = taskRepository.UserHasTasks(CurrentUser.User.Username);
+
+                if (hasTasks)
+                {
+                    Main mainWindow = new Main();
+                    mainWindow.Show();
+                    this.Close();
+                }
+            }
         }
     }
 }
