@@ -392,11 +392,9 @@ namespace Desktop
 
         private void HistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            var completedTasks = _userTasks.Where(t => t.IsCompleted).ToList();
-            MessageBox.Show($"Выполнено задач: {completedTasks.Count}",
-                          "История",
-                          MessageBoxButton.OK,
-                          MessageBoxImage.Information);
+            var historyWindow = new HistoryWindow();
+            historyWindow.Owner = this;
+            historyWindow.ShowDialog();
         }
 
         private void HomeCategoryButton_Click(object sender, RoutedEventArgs e)
@@ -431,6 +429,22 @@ namespace Desktop
                 var taskBorder = CreateTaskBorder(task);
                 TasksStackPanel.Children.Add(taskBorder);
                 _borderToTaskMap[taskBorder] = task;
+            }
+
+            if (filteredTasks.Count > 0)
+            {
+                var firstBorder = TasksStackPanel.Children[0] as Border;
+                if (firstBorder != null)
+                {
+                    SelectTaskItem(firstBorder);
+                }
+            }
+            else
+            {
+                TaskTitle.Text = "Нет задач в категории";
+                TaskTime.Text = "";
+                TaskDate.Text = "";
+                TaskDescription.Text = $"В категории '{category}' нет задач";
             }
 
             MessageBox.Show($"Показаны задачи категории: {category} (всего: {filteredTasks.Count})",
