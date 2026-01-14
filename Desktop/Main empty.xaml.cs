@@ -23,8 +23,14 @@ namespace Desktop
         {
             CreateTaskWindow createTaskWindow = new CreateTaskWindow();
             createTaskWindow.Owner = this;
-            createTaskWindow.Closed += CreateTaskWindow_Closed; 
-            createTaskWindow.ShowDialog();
+            bool? result = createTaskWindow.ShowDialog();
+
+            if (result == true)
+            {
+                Main mainWindow = new Main();
+                mainWindow.Show();
+                this.Close();
+            }
         }
 
         private void CreateTaskWindow_Closed(object sender, EventArgs e)

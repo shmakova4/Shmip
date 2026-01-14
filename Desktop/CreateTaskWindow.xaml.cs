@@ -1,42 +1,28 @@
-﻿using Desktop.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Desktop.Repository;
 using Todo.Entities;
 
 namespace Desktop
 {
-    /// <summary>
-    /// Логика взаимодействия для CreateTaskWindow.xaml
-    /// </summary>
     public partial class CreateTaskWindow : Window
     {
+        private TaskRepository _taskRepository = new TaskRepository();
+
         public CreateTaskWindow()
         {
             InitializeComponent();
+            DatePickerControl.SelectedDate = DateTime.Today;
+            HoursComboBox.SelectedIndex = 0;
+            MinutesComboBox.SelectedIndex = 0;
         }
 
-
-        
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            
             if (string.IsNullOrWhiteSpace(TitleTextBox.Text))
             {
-                MessageBox.Show("Введите название задачи",
-                              "Ошибка",
-                              MessageBoxButton.OK,
-                              MessageBoxImage.Warning);
+                MessageBox.Show("Введите название задачи", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 TitleTextBox.Focus();
                 return;
             }
@@ -70,31 +56,30 @@ namespace Desktop
                     Description = description,
                     Date = taskDate,
                     Time = time,
-                    Username = CurrentUser.User.Username
+                    Username = CurrentUser.User.Username,
+                    IsCompleted = false,
+                    CreatedAt = DateTime.Now
                 };
 
-                var taskRepository = new TaskRepository();
-                if (taskRepository.AddTask(task))
+                if (_taskRepository.AddTask(task))
                 {
-                    Console.WriteLine($"Задача сохранена для пользователя: {CurrentUser.User.Username}");
-                    this.DialogResult = true; 
+                    this.DialogResult = true;
                     this.Close();
                 }
                 else
                 {
                     MessageBox.Show("Ошибка при сохранении задачи", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
                 }
             }
             else
             {
                 MessageBox.Show("Пользователь не авторизован", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
             }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            this.DialogResult = false;
             this.Close();
         }
     }

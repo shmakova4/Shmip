@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using Todo.Entities;
 
@@ -85,8 +86,9 @@ namespace Desktop
                 {
                     CurrentUser.User = registeredUser;
                     MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Main mainWindow = new Main();
-                    mainWindow.Show();
+
+                    Main_empty mainEmptyWindow = new Main_empty();
+                    mainEmptyWindow.Show();
                     this.Close();
                 }
                 else
@@ -120,12 +122,12 @@ namespace Desktop
             }
         }
 
-        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
