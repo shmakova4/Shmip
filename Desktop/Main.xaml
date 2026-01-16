@@ -39,10 +39,10 @@
                             Background="#808080"
                             Margin="0,0,0,10">
                         <Image Source="/Resources/avatar.png" 
-                               Stretch="UniformToFill"/>
+                               Stretch="UniformToFill" HorizontalAlignment="Left" Width="50"/>
                     </Border>
 
-                    
+
                     <TextBlock Name="UserNameTextBlock"
                                Text="Алексей" 
                                FontSize="12" 
@@ -98,7 +98,7 @@
             </Grid>
         </Border>
 
-        
+
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -243,30 +243,29 @@
                             </StackPanel>
                         </Grid>
                     </Border>
-
-                    <Border Name="Task2"
+                    <Border x:Name="Task2"
                             Background="White" 
                             BorderThickness="0,0,0,1"
                             BorderBrush="#E0E0E0"
                             Padding="15,15"
-                            Margin="0,0,0,0">
+                            >
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border Name="Task2Circle"
+                            <Border x:Name="Task2Circle"
                                     Grid.Column="0" 
                                     Width="24" 
                                     Height="24" 
                                     CornerRadius="12" 
                                     BorderThickness="2"
                                     BorderBrush="#E0E0E0"
-                                    Margin="0,0,15,0"
-                                    VerticalAlignment="Center"
+                                    Margin="0,9,15,0"
+                                    VerticalAlignment="Top"
                                     Background="White">
-                                <TextBlock Name="Task2Check"
+                                <TextBlock x:Name="Task2Check"
                                            Text="✓"
                                            Foreground="White"
                                            FontSize="12"
@@ -277,12 +276,12 @@
                             </Border>
 
                             <StackPanel Grid.Column="1">
-                                <TextBlock Name="Task2Title"
+                                <TextBlock x:Name="Task2Title"
                                            Text="Прочитать книгу Златана" 
                                            FontSize="16"
                                            FontWeight="SemiBold"
                                            TextWrapping="Wrap"/>
-                                <TextBlock Name="Task2Time"
+                                <TextBlock x:Name="Task2Time"
                                            Text="10:30"
                                            FontSize="12"
                                            Foreground="#666666"
