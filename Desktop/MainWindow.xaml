@@ -9,6 +9,43 @@
 
     <Window.Resources>
         <local:EmptyStringToBooleanConverter x:Key="EmptyStringToBooleanConverter"/>
+
+        <Storyboard x:Key="PageEnterAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.3"/>
+        </Storyboard>
+
+        <Storyboard x:Key="PageExitAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="1" To="0" Duration="0:0:0.2"/>
+        </Storyboard>
+
+        <Storyboard x:Key="LogoPulseAnimation" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetProperty="(Image.RenderTransform).(ScaleTransform.ScaleX)"
+                             From="1" To="1.05" Duration="0:0:2" 
+                             AutoReverse="True"/>
+            <DoubleAnimation Storyboard.TargetProperty="(Image.RenderTransform).(ScaleTransform.ScaleY)"
+                             From="1" To="1.05" Duration="0:0:2"
+                             AutoReverse="True"/>
+            <DoubleAnimation Storyboard.TargetProperty="(Image.Opacity)"
+                             From="0.9" To="1" Duration="0:0:2"
+                             AutoReverse="True"/>
+        </Storyboard>
+
+        <Storyboard x:Key="LogoMouseOverAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="(Image.RenderTransform).(ScaleTransform.ScaleX)"
+                             To="1.1" Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetProperty="(Image.RenderTransform).(ScaleTransform.ScaleY)"
+                             To="1.1" Duration="0:0:0.3"/>
+        </Storyboard>
+
+        <Storyboard x:Key="LogoMouseLeaveAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="(Image.RenderTransform).(ScaleTransform.ScaleX)"
+                             To="1" Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetProperty="(Image.RenderTransform).(ScaleTransform.ScaleY)"
+                             To="1" Duration="0:0:0.3"/>
+        </Storyboard>
+
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -154,11 +191,33 @@
             </TextBox>
 
             <Button Content="Восстановить пароль" HorizontalAlignment="Left" Margin="533,291,0,0" VerticalAlignment="Top" Width="213" Background="White" BorderThickness="0,0,0,0" FontSize="20"/>
-            <Button Style="{StaticResource кнопка1}" Content="Войти" HorizontalAlignment="Left" Margin="414,337,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="332" FontSize="16" Click="Button_Click_1"/>
+
+            <Button x:Name="LoginButton" Style="{StaticResource кнопка1}" Content="Войти" HorizontalAlignment="Left" Margin="414,337,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="332" FontSize="16" Click="Button_Click_1"/>
+
             <Button Content="Регистрация" HorizontalAlignment="Left" Margin="414,374,0,0" VerticalAlignment="Top" Background="#FFF26B6B" BorderThickness="0,0,0,0" Foreground="White" Height="32" Width="332" FontSize="16" Style="{StaticResource кнопка1}" Click="Button_Click"/>
-            <Image Source="file:///C:/Users/User/Desktop/2%20курс/Todo/images/logo.jpg" Margin="64,22,546,255"/>
+
+            <Image x:Name="LogoImage" Source="file:///C:/Users/User/Desktop/2%20курс/Todo/images/logo.jpg" Margin="64,22,546,255">
+                <Image.RenderTransform>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Image.RenderTransform>
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource LogoMouseOverAnimation}"/>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource LogoMouseLeaveAnimation}"/>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
         </Grid>
 
-        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Visibility="Collapsed"/>
+        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Visibility="Collapsed" Opacity="0"/>
     </Grid>
 </Window>

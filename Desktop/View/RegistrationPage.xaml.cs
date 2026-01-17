@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media;
 using Todo.Entities;
 
 namespace Desktop.View
@@ -42,15 +41,14 @@ namespace Desktop.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (Window.GetWindow(this) is MainWindow currentWindow)
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null)
             {
-                MainWindow newLoginWindow = new MainWindow();
-                newLoginWindow.Show();
-                currentWindow.Close();
+                mainWindow.NavigateBackToLogin();
             }
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
             string username = UsernameTextBox.Text;
             string email = EmailTextBox.Text;
@@ -90,9 +88,10 @@ namespace Desktop.View
                     CurrentUser.User = registeredUser;
                     MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    if (NavigationService != null)
+                    var mainWindow = Application.Current.MainWindow as MainWindow;
+                    if (mainWindow != null)
                     {
-                        NavigationService.Navigate(new MainEmptyPage());
+                        await mainWindow.NavigateToPageAsync(new MainEmptyPage());
                     }
                 }
                 else
@@ -106,34 +105,12 @@ namespace Desktop.View
             }
         }
 
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (textBox != null && textBox.Text == textBox.Tag.ToString())
-            {
-                textBox.Text = "";
-                textBox.Foreground = Brushes.Black;
-            }
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                textBox.Text = textBox.Tag.ToString();
-                textBox.Foreground = Brushes.Gray;
-            }
-        }
-
         private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
         }
 
         private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
         }
     }
 }

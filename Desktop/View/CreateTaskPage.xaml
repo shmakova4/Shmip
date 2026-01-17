@@ -15,67 +15,141 @@
       MaxWidth="800"
       Background="#F0F0F0">
 
+    <Page.Resources>
+        
+        <Storyboard x:Key="CreateButtonHoverAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                             To="1.05" Duration="0:0:0.15"/>
+            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                             To="1.05" Duration="0:0:0.15"/>
+            <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                            To="#45A049" Duration="0:0:0.15"/>
+        </Storyboard>
+
+        <Storyboard x:Key="CreateButtonNormalAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                             To="1" Duration="0:0:0.15"/>
+            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                             To="1" Duration="0:0:0.15"/>
+            <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                            To="#4CAF50" Duration="0:0:0.15"/>
+        </Storyboard>
+
+        <Style x:Key="AnimatedCreateButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource CreateButtonHoverAnimation}"/>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource CreateButtonNormalAnimation}"/>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CancelButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
     <Grid>
-        
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-        
-        
-            <StackPanel Grid.Column="0" Margin="40,0,40,0" Height="385">
-                <StackPanel.Style>
-                    <Style TargetType="StackPanel">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                    </Style>
-                </StackPanel.Style>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Название" 
+
+
+        <StackPanel Grid.Column="0" Margin="40,0,40,0" Height="385">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </StackPanel.Style>
+
+            <TextBlock Text="Название" 
                    FontWeight="SemiBold"
                    Margin="0,0,0,5"
                    FontSize="14"/>
-                <Border CornerRadius="8"
+            <Border CornerRadius="8"
                 Background="White"
                 Margin="0,0,0,20">
-                    <TextBox Name="TitleTextBox" 
+                <TextBox Name="TitleTextBox" 
                      BorderThickness="0"
                      Padding="10"
                      Height="41"
                      FontSize="14"
                      Background="Transparent"/>
-                </Border>
-                
+            </Border>
 
-                <TextBlock Text="Категория" 
+
+            <TextBlock Text="Категория" 
                    FontWeight="SemiBold"
                    Margin="0,0,0,5"
                    FontSize="14"/>
-                <Border CornerRadius="8"
+            <Border CornerRadius="8"
                 Background="White"
                 Margin="0,0,0,20">
-                    <ComboBox Name="CategoryComboBox" 
+                <ComboBox Name="CategoryComboBox" 
                       BorderThickness="0"
                       Padding="10"
                       Height="51"
                       FontSize="14"
                       Background="Transparent">
-                        <ComboBoxItem>Дом</ComboBoxItem>
-                        <ComboBoxItem>Работа</ComboBoxItem>
-                        <ComboBoxItem>Учеба</ComboBoxItem>
-                        <ComboBoxItem>Отдых</ComboBoxItem>
-                    </ComboBox>
-                </Border>
+                    <ComboBoxItem>Дом</ComboBoxItem>
+                    <ComboBoxItem>Работа</ComboBoxItem>
+                    <ComboBoxItem>Учеба</ComboBoxItem>
+                    <ComboBoxItem>Отдых</ComboBoxItem>
+                </ComboBox>
+            </Border>
 
-                <TextBlock Text="Описание" 
+            <TextBlock Text="Описание" 
                    FontWeight="SemiBold"
                    Margin="0,0,0,5"
                    FontSize="14"/>
-                <Border CornerRadius="8"
+            <Border CornerRadius="8"
                 Background="White"
                 Margin="0,0,0,30">
-                    <TextBox Name="DescriptionTextBox" 
+                <TextBox Name="DescriptionTextBox" 
                      BorderThickness="0"
                      Padding="10"
                      Height="89"
@@ -84,134 +158,111 @@
                      TextWrapping="Wrap"
                      AcceptsReturn="True"
                      VerticalScrollBarVisibility="Auto"/>
-                </Border>
+            </Border>
 
-                <Button x:Name="CreateButton" 
+            <Button x:Name="CreateButton" 
                 Content="Создать" 
-                Width="150"
-                Height="40"
-                Background="#4CAF50"
-                Foreground="White"
-                BorderThickness="0"
-                FontSize="14"
-                FontWeight="SemiBold"
-                Click="CreateButton_Click">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}"
-                                        CornerRadius="20"
-                                        Padding="{TemplateBinding Padding}">
-                                            <ContentPresenter HorizontalAlignment="Center"
-                                                      VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
-            </StackPanel>
+                Style="{StaticResource AnimatedCreateButtonStyle}"
+                Click="CreateButton_Click"/>
+        </StackPanel>
 
-            <Border Grid.Column="1" 
+        <Border Grid.Column="1" 
             Width="1" 
             Background="#CCCCCC"
             Margin="0,40"/>
 
-            <Grid Grid.Column="2" Margin="40,-14,40,10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Column="2" Margin="40,-14,40,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" VerticalAlignment="Center">
-                    <TextBlock Text="Дата" 
+            <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                <TextBlock Text="Дата" 
                        FontWeight="SemiBold"
                        Margin="0,0,0,5"
                        FontSize="14" Height="20"/>
-                    <Border CornerRadius="8"
+                <Border CornerRadius="8"
                     Background="White"
                     Margin="0,0,0,30">
-                        <DatePicker Name="DatePickerControl"
+                    <DatePicker Name="DatePickerControl"
                           BorderThickness="0"
                           Padding="10"
                           Height="42"
                           FontSize="14"
                           Background="Transparent">
-                            <DatePicker.Resources>
-                                <Style TargetType="DatePickerTextBox">
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="Padding" Value="0"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                </Style>
-                            </DatePicker.Resources>
-                        </DatePicker>
-                    </Border>
+                        <DatePicker.Resources>
+                            <Style TargetType="DatePickerTextBox">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+                </Border>
 
-                    <TextBlock Text="Время" 
+                <TextBlock Text="Время" 
                        FontWeight="SemiBold"
                        Margin="0,0,0,5"
                        FontSize="14"/>
-                    <Grid Margin="0,0,0,30">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                <Grid Margin="0,0,0,30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                        <Border Grid.Column="0" 
+                    <Border Grid.Column="0" 
                         CornerRadius="8"
                         Background="White">
-                            <ComboBox Name="HoursComboBox"
+                        <ComboBox Name="HoursComboBox"
                             BorderThickness="0"
                             Padding="10"
                             Height="35"
                             FontSize="14"
                             Background="Transparent">
-                                <ComboBoxItem>08</ComboBoxItem>
-                                <ComboBoxItem>09</ComboBoxItem>
-                                <ComboBoxItem>10</ComboBoxItem>
-                                <ComboBoxItem>11</ComboBoxItem>
-                                <ComboBoxItem>12</ComboBoxItem>
-                                <ComboBoxItem>13</ComboBoxItem>
-                                <ComboBoxItem>14</ComboBoxItem>
-                                <ComboBoxItem>15</ComboBoxItem>
-                                <ComboBoxItem>16</ComboBoxItem>
-                                <ComboBoxItem>17</ComboBoxItem>
-                                <ComboBoxItem>18</ComboBoxItem>
-                                <ComboBoxItem>19</ComboBoxItem>
-                                <ComboBoxItem>20</ComboBoxItem>
-                            </ComboBox>
-                        </Border>
+                            <ComboBoxItem>08</ComboBoxItem>
+                            <ComboBoxItem>09</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                            <ComboBoxItem>13</ComboBoxItem>
+                            <ComboBoxItem>14</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>16</ComboBoxItem>
+                            <ComboBoxItem>17</ComboBoxItem>
+                            <ComboBoxItem>18</ComboBoxItem>
+                            <ComboBoxItem>19</ComboBoxItem>
+                            <ComboBoxItem>20</ComboBoxItem>
+                        </ComboBox>
+                    </Border>
 
-                        <TextBlock Grid.Column="1" 
+                    <TextBlock Grid.Column="1" 
                            Text=":" 
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            FontSize="16"
                            FontWeight="Bold"/>
 
-                        <Border Grid.Column="2" 
+                    <Border Grid.Column="2" 
                         CornerRadius="8"
                         Background="White">
-                            <ComboBox Name="MinutesComboBox"
+                        <ComboBox Name="MinutesComboBox"
                             BorderThickness="0"
                             Padding="10"
                             Height="35"
                             FontSize="14"
                             Background="Transparent">
-                                <ComboBoxItem>00</ComboBoxItem>
-                                <ComboBoxItem>15</ComboBoxItem>
-                                <ComboBoxItem>30</ComboBoxItem>
-                                <ComboBoxItem>45</ComboBoxItem>
-                            </ComboBox>
-                        </Border>
-                    </Grid>
-                </StackPanel>
+                            <ComboBoxItem>00</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>30</ComboBoxItem>
+                            <ComboBoxItem>45</ComboBoxItem>
+                        </ComboBox>
+                    </Border>
+                </Grid>
+            </StackPanel>
 
-                <Button Name="CancelButton" 
+            <Button Name="CancelButton" 
                 Content="Отмена" 
                 Width="150"
                 Height="40"
@@ -222,25 +273,10 @@
                 FontWeight="SemiBold"
                 Click="CancelButton_Click"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Top" Margin="0,366,0,0">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}"
-                                        CornerRadius="20"
-                                        Padding="{TemplateBinding Padding}">
-                                            <ContentPresenter HorizontalAlignment="Center"
-                                                      VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
-            </Grid>
+                VerticalAlignment="Top" 
+                Margin="0,370,0,0"
+                Style="{StaticResource CancelButtonStyle}"/>
+        </Grid>
 
     </Grid>
 </Page>

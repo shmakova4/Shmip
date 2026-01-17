@@ -1,5 +1,4 @@
 ﻿using Desktop.Repository;
-using Desktop.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace Desktop.View
         {
             InitializeComponent();
             this.Loaded += MainPage_Loaded;
-            InitializeEventHandlers();           
+            InitializeEventHandlers();
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -377,11 +376,12 @@ namespace Desktop.View
             }
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NavigationService != null)
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null)
             {
-                NavigationService.Navigate(new CreateTaskPage());
+                await mainWindow.NavigateToPageAsync(new CreateTaskPage());
             }
         }
 
@@ -392,11 +392,12 @@ namespace Desktop.View
             MessageBox.Show("Задачи обновлены", "Задачи", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void HistoryButton_Click(object sender, RoutedEventArgs e)
+        private async void HistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NavigationService != null)
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null)
             {
-                NavigationService.Navigate(new HistoryPage());
+                await mainWindow.NavigateToPageAsync(new HistoryPage());
             }
         }
 
@@ -455,6 +456,5 @@ namespace Desktop.View
                           MessageBoxButton.OK,
                           MessageBoxImage.Information);
         }
-
-            }
+    }
 }

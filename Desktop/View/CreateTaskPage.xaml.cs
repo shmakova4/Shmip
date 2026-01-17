@@ -18,7 +18,7 @@ namespace Desktop.View
             MinutesComboBox.SelectedIndex = 0;
         }
 
-        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        private async void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(TitleTextBox.Text))
             {
@@ -65,13 +65,17 @@ namespace Desktop.View
                 {
                     bool userHasTasks = _taskRepository.UserHasTasks(CurrentUser.User.Username);
 
-                    if (userHasTasks)
+                    var mainWindow = Application.Current.MainWindow as MainWindow;
+                    if (mainWindow != null)
                     {
-                        NavigationService.Navigate(new MainPage());
-                    }
-                    else
-                    {
-                        NavigationService.Navigate(new MainEmptyPage());
+                        if (userHasTasks)
+                        {
+                            await mainWindow.NavigateToPageAsync(new MainPage());
+                        }
+                        else
+                        {
+                            await mainWindow.NavigateToPageAsync(new MainEmptyPage());
+                        }
                     }
                 }
                 else
@@ -85,19 +89,20 @@ namespace Desktop.View
             }
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NavigationService != null)
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null)
             {
                 bool userHasTasks = _taskRepository.UserHasTasks(CurrentUser.User?.Username);
 
                 if (userHasTasks)
                 {
-                    NavigationService.Navigate(new MainPage());
+                    await mainWindow.NavigateToPageAsync(new MainPage());
                 }
                 else
                 {
-                    NavigationService.Navigate(new MainEmptyPage());
+                    await mainWindow.NavigateToPageAsync(new MainEmptyPage());
                 }
             }
         }

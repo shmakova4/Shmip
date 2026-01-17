@@ -3,9 +3,11 @@ using Desktop.View;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media.Animation;
 using Todo.Entities;
 
 namespace Desktop
@@ -26,6 +28,7 @@ namespace Desktop
     public partial class MainWindow : Window
     {
         private readonly UserRepository _userRepository;
+        private bool _isNavigating = false;
 
         public MainWindow()
         {
@@ -37,9 +40,25 @@ namespace Desktop
 
             MainFrame.Navigated += MainFrame_Navigated;
             this.Closing += MainWindow_Closing;
+            this.Loaded += MainWindow_Loaded;
         }
 
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            StartLogoAnimation();
+        }
+
+        private void StartLogoAnimation()
+        {
+            var pulseAnimation = (Storyboard)FindResource("LogoPulseAnimation");
+            if (pulseAnimation != null && LogoImage != null)
+            {
+                Storyboard.SetTarget(pulseAnimation, LogoImage);
+                pulseAnimation.Begin();
+            }
+        }
+
+        private async void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (MainFrame.Content is Page currentPage)
             {
@@ -51,11 +70,11 @@ namespace Desktop
 
                     if (userHasTasks)
                     {
-                        NavigateToPage(new MainPage());
+                        await NavigateToPageAsync(new MainPage());
                     }
                     else
                     {
-                        NavigateToPage(new MainEmptyPage());
+                        await NavigateToPageAsync(new MainEmptyPage());
                     }
                 }
             }
@@ -103,10 +122,10 @@ namespace Desktop
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(new RegistrationPage());
+            NavigateToPageAsync(new RegistrationPage());
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
             string email = EmailTextBox.Text;
             string password = PasswordTextBox.Text;
@@ -147,11 +166,11 @@ namespace Desktop
 
                 if (userHasTasks)
                 {
-                    NavigateToPage(new MainPage());
+                    await NavigateToPageAsync(new MainPage());
                 }
                 else
                 {
-                    NavigateToPage(new MainEmptyPage());
+                    await NavigateToPageAsync(new MainEmptyPage());
                 }
             }
             catch (Exception ex)
@@ -161,25 +180,71 @@ namespace Desktop
             }
         }
 
-        private void NavigateToPage(Page page)
+        public async Task NavigateToPageAsync(Page page)
         {
-            MainFrame.Visibility = Visibility.Visible;
-            LoginGrid.Visibility = Visibility.Collapsed;
-            MainGrid.RowDefinitions[0].Height = new GridLength(0);
-            MainGrid.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
+            if (_isNavigating) return;
+            _isNavigating = true;
 
-            MainFrame.Navigate(page);
+            try
+            {
+                if (MainFrame.Visibility != Visibility.Visible)
+                {
+                    MainFrame.Visibility = Visibility.Visible;
+                    LoginGrid.Visibility = Visibility.Collapsed;
+                    MainGrid.RowDefinitions[0].Height = new GridLength(0);
+                    MainGrid.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
+                }
+
+                var exitAnimation = (Storyboard)FindResource("PageExitAnimation");
+                if (MainFrame.Content != null && exitAnimation != null)
+                {
+                    Storyboard.SetTarget(exitAnimation, MainFrame);
+                    exitAnimation.Begin();
+                    await Task.Delay(200);
+                }
+
+                MainFrame.Navigate(page);
+
+                var enterAnimation = (Storyboard)FindResource("PageEnterAnimation");
+                if (enterAnimation != null)
+                {
+                    Storyboard.SetTarget(enterAnimation, MainFrame);
+                    enterAnimation.Begin();
+                }
+            }
+            finally
+            {
+                _isNavigating = false;
+            }
         }
 
-        public void NavigateBackToLogin()
+        public async void NavigateBackToLogin()
         {
-            MainFrame.Visibility = Visibility.Collapsed;
-            LoginGrid.Visibility = Visibility.Visible;
-            MainGrid.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
-            MainGrid.RowDefinitions[1].Height = new GridLength(0);
+            if (_isNavigating) return;
+            _isNavigating = true;
 
-            MainFrame.Content = null;
-            this.Title = "Log In";
+            try
+            {
+                var exitAnimation = (Storyboard)FindResource("PageExitAnimation");
+                if (MainFrame.Content != null && exitAnimation != null)
+                {
+                    Storyboard.SetTarget(exitAnimation, MainFrame);
+                    exitAnimation.Begin();
+                    await Task.Delay(200);
+                }
+
+                MainFrame.Visibility = Visibility.Collapsed;
+                LoginGrid.Visibility = Visibility.Visible;
+                MainGrid.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
+                MainGrid.RowDefinitions[1].Height = new GridLength(0);
+
+                MainFrame.Content = null;
+                this.Title = "Log In";
+            }
+            finally
+            {
+                _isNavigating = false;
+            }
         }
 
         private void CreateTestUserIfNeeded(string email, string password, UserRepository userRepository)

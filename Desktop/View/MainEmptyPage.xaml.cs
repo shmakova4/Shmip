@@ -13,27 +13,17 @@ namespace Desktop.View
             InitializeComponent();
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private async void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            
-            if (NavigationService != null)
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null)
             {
-                NavigationService.Navigate(new Uri("/View/MainWindow.xaml", UriKind.Relative));
+                await mainWindow.NavigateToPageAsync(new CreateTaskPage());
             }
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            if (NavigationService != null)
-            {
-                NavigationService.Navigate(new CreateTaskPage());
-            }
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            
             if (CurrentUser.IsAuthenticated && CurrentUser.User != null)
             {
                 var taskRepository = new TaskRepository();
@@ -41,12 +31,21 @@ namespace Desktop.View
 
                 if (hasTasks)
                 {
-                    
-                    if (NavigationService != null)
+                    var mainWindow = Application.Current.MainWindow as MainWindow;
+                    if (mainWindow != null)
                     {
-                        NavigationService.Navigate(new Uri("/View/MainPage.xaml", UriKind.Relative));
+                        await mainWindow.NavigateToPageAsync(new MainPage());
                     }
                 }
+            }
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null)
+            {
+                mainWindow.NavigateBackToLogin();
             }
         }
     }
