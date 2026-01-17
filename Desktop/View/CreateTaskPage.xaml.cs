@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Desktop.Repository;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using Desktop.Repository;
 using Todo.Entities;
 
-namespace Desktop
+namespace Desktop.View
 {
-    public partial class CreateTaskWindow : Window
+    public partial class CreateTaskPage : Page
     {
         private TaskRepository _taskRepository = new TaskRepository();
 
-        public CreateTaskWindow()
+        public CreateTaskPage()
         {
             InitializeComponent();
             DatePickerControl.SelectedDate = DateTime.Today;
@@ -63,8 +63,16 @@ namespace Desktop
 
                 if (_taskRepository.AddTask(task))
                 {
-                    this.DialogResult = true;
-                    this.Close();
+                    bool userHasTasks = _taskRepository.UserHasTasks(CurrentUser.User.Username);
+
+                    if (userHasTasks)
+                    {
+                        NavigationService.Navigate(new MainPage());
+                    }
+                    else
+                    {
+                        NavigationService.Navigate(new MainEmptyPage());
+                    }
                 }
                 else
                 {
@@ -79,8 +87,19 @@ namespace Desktop
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
-            this.Close();
+            if (NavigationService != null)
+            {
+                bool userHasTasks = _taskRepository.UserHasTasks(CurrentUser.User?.Username);
+
+                if (userHasTasks)
+                {
+                    NavigationService.Navigate(new MainPage());
+                }
+                else
+                {
+                    NavigationService.Navigate(new MainEmptyPage());
+                }
+            }
         }
     }
 }

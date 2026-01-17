@@ -8,16 +8,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Todo.Entities;
 
-namespace Desktop
+namespace Desktop.View
 {
-    public partial class HistoryWindow : Window
+    public partial class HistoryPage : Page
     {
         private Border _selectedTaskItem;
         private List<TaskModel> _completedTasks = new List<TaskModel>();
         private TaskRepository _taskRepository = new TaskRepository();
         private Dictionary<Border, TaskModel> _borderToTaskMap = new Dictionary<Border, TaskModel>();
 
-        public HistoryWindow()
+        public HistoryPage()
         {
             InitializeComponent();
             LoadCompletedTasks();
@@ -190,6 +190,12 @@ namespace Desktop
             {
                 border.Background = Brushes.White;
             }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadCompletedTasks();
+            DisplayCompletedTasks();
         }
     }
 }

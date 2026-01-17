@@ -6,8 +6,19 @@
     "Description": "111",
     "Date": "2026-01-15T00:00:00",
     "Time": "08:00",
-    "IsCompleted": false,
+    "IsCompleted": true,
     "Username": "Qqq",
     "CreatedAt": "2026-01-14T12:44:17.5801115+03:00"
+  },
+  {
+    "Id": "61bfe804-2d29-43e2-8560-af9457d22ba7",
+    "Title": "2",
+    "Category": "\u0423\u0447\u0435\u0431\u0430",
+    "Description": "2",
+    "Date": "2026-01-16T00:00:00+03:00",
+    "Time": "08:00",
+    "IsCompleted": true,
+    "Username": "Qqq",
+    "CreatedAt": "2026-01-16T23:43:28.5136589+03:00"
   }
 ]

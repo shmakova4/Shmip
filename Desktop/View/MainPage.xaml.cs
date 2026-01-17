@@ -1,4 +1,5 @@
 ﻿using Desktop.Repository;
+using Desktop.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,21 +9,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Todo.Entities;
 
-namespace Desktop
+namespace Desktop.View
 {
-    public partial class Main : Window
+    public partial class MainPage : Page
     {
         private Border _selectedTaskItem;
         private List<TaskModel> _userTasks = new List<TaskModel>();
         private TaskRepository _taskRepository = new TaskRepository();
         private Dictionary<Border, TaskModel> _borderToTaskMap = new Dictionary<Border, TaskModel>();
 
-        public Main()
+        public MainPage()
         {
             InitializeComponent();
+            this.Loaded += MainPage_Loaded;
+            InitializeEventHandlers();           
+        }
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
             SetUserName();
             LoadUserTasks();
-            InitializeEventHandlers();
             DisplayUserTasks();
         }
 
@@ -373,13 +379,9 @@ namespace Desktop
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateTaskWindow createTaskWindow = new CreateTaskWindow();
-            createTaskWindow.Owner = this;
-
-            if (createTaskWindow.ShowDialog() == true)
+            if (NavigationService != null)
             {
-                LoadUserTasks();
-                DisplayUserTasks();
+                NavigationService.Navigate(new CreateTaskPage());
             }
         }
 
@@ -392,9 +394,10 @@ namespace Desktop
 
         private void HistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            var historyWindow = new HistoryWindow();
-            historyWindow.Owner = this;
-            historyWindow.ShowDialog();
+            if (NavigationService != null)
+            {
+                NavigationService.Navigate(new HistoryPage());
+            }
         }
 
         private void HomeCategoryButton_Click(object sender, RoutedEventArgs e)
@@ -453,11 +456,5 @@ namespace Desktop
                           MessageBoxImage.Information);
         }
 
-        protected override void OnActivated(EventArgs e)
-        {
-            base.OnActivated(e);
-            LoadUserTasks();
-            DisplayUserTasks();
-        }
-    }
+            }
 }

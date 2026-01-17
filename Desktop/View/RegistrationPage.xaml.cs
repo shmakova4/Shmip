@@ -1,14 +1,14 @@
 ﻿using Desktop.Repository;
+using Desktop.View;
 using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Media;
 using Todo.Entities;
 
-namespace Desktop
+namespace Desktop.View
 {
     public class StringToVisibilityConverter : IValueConverter
     {
@@ -31,20 +31,23 @@ namespace Desktop
         }
     }
 
-    public partial class Registration : Window
+    public partial class RegistrationPage : Page
     {
         private UserRepository _userRepository = new UserRepository();
 
-        public Registration()
+        public RegistrationPage()
         {
             InitializeComponent();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            if (Window.GetWindow(this) is MainWindow currentWindow)
+            {
+                MainWindow newLoginWindow = new MainWindow();
+                newLoginWindow.Show();
+                currentWindow.Close();
+            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -87,9 +90,10 @@ namespace Desktop
                     CurrentUser.User = registeredUser;
                     MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    Main_empty mainEmptyWindow = new Main_empty();
-                    mainEmptyWindow.Show();
-                    this.Close();
+                    if (NavigationService != null)
+                    {
+                        NavigationService.Navigate(new MainEmptyPage());
+                    }
                 }
                 else
                 {
@@ -124,12 +128,12 @@ namespace Desktop
 
         private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            
         }
 
         private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            
         }
     }
 }

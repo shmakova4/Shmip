@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Desktop.Repository;
+using Desktop.View;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Desktop.Repository;
 using Todo.Entities;
 
 namespace Desktop
@@ -33,13 +34,76 @@ namespace Desktop
             string filePath = @"C:\Users\User\Desktop\2 курс\Todo\users.json";
             Console.WriteLine($"Путь к файлу пользователей: {filePath}");
             Console.WriteLine($"Файл существует: {File.Exists(filePath)}");
+
+            MainFrame.Navigated += MainFrame_Navigated;
+            this.Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (MainFrame.Content is Page currentPage)
+            {
+                if (currentPage is HistoryPage || currentPage is CreateTaskPage)
+                {
+                    e.Cancel = true;
+
+                    bool userHasTasks = CheckIfUserHasTasks(CurrentUser.User?.Username);
+
+                    if (userHasTasks)
+                    {
+                        NavigateToPage(new MainPage());
+                    }
+                    else
+                    {
+                        NavigateToPage(new MainEmptyPage());
+                    }
+                }
+            }
+        }
+
+        private void MainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            UpdateWindowTitle();
+        }
+
+        private void UpdateWindowTitle()
+        {
+            if (MainFrame.Content is Page currentPage)
+            {
+                if (currentPage is RegistrationPage)
+                {
+                    this.Title = "Регистрация";
+                }
+                else if (currentPage is MainEmptyPage)
+                {
+                    this.Title = "Добро пожаловать!";
+                }
+                else if (currentPage is CreateTaskPage)
+                {
+                    this.Title = "Создание задачи";
+                }
+                else if (currentPage is MainPage)
+                {
+                    this.Title = "Задачи";
+                }
+                else if (currentPage is HistoryPage)
+                {
+                    this.Title = "История выполненных задач";
+                }
+                else
+                {
+                    this.Title = "Todo App";
+                }
+            }
+            else
+            {
+                this.Title = "Log In";
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Registration registrationWindow = new Registration();
-            registrationWindow.Show();
-            this.Hide();
+            NavigateToPage(new RegistrationPage());
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -83,22 +147,39 @@ namespace Desktop
 
                 if (userHasTasks)
                 {
-                    Main mainWindow = new Main();
-                    mainWindow.Show();
+                    NavigateToPage(new MainPage());
                 }
                 else
                 {
-                    Main_empty mainEmptyWindow = new Main_empty();
-                    mainEmptyWindow.Show();
+                    NavigateToPage(new MainEmptyPage());
                 }
-
-                this.Hide();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при авторизации: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 Console.WriteLine($"Исключение: {ex}");
             }
+        }
+
+        private void NavigateToPage(Page page)
+        {
+            MainFrame.Visibility = Visibility.Visible;
+            LoginGrid.Visibility = Visibility.Collapsed;
+            MainGrid.RowDefinitions[0].Height = new GridLength(0);
+            MainGrid.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
+
+            MainFrame.Navigate(page);
+        }
+
+        public void NavigateBackToLogin()
+        {
+            MainFrame.Visibility = Visibility.Collapsed;
+            LoginGrid.Visibility = Visibility.Visible;
+            MainGrid.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
+            MainGrid.RowDefinitions[1].Height = new GridLength(0);
+
+            MainFrame.Content = null;
+            this.Title = "Log In";
         }
 
         private void CreateTestUserIfNeeded(string email, string password, UserRepository userRepository)
@@ -126,6 +207,10 @@ namespace Desktop
         {
             try
             {
+                if (string.IsNullOrEmpty(username))
+                {
+                    return false;
+                }
                 var taskRepository = new TaskRepository();
                 return taskRepository.UserHasTasks(username);
             }
